@@ -6,7 +6,7 @@
 '''
 leetcode
 509. 斐波那契数
-简单
+easy
 https://leetcode.cn/problems/fibonacci-number/
 '''
 

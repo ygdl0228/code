@@ -6,7 +6,7 @@
 '''
 leetcode
 面试题 08.06. 汉诺塔问题
-简单
+easy
 https://leetcode.cn/problems/hanota-lcci/
 '''
 
