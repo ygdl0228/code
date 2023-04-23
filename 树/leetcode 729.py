@@ -5,39 +5,47 @@
 
 '''
 leetcode
+线段树
 729. 我的日程安排表 I
-mid
+mid 没明白
 https://leetcode.cn/problems/my-calendar-i/description/?languageTags=python
 '''
-class MyCalendar:
+
+
+class MyCalendar(object):
+
     def __init__(self):
         self.tree = set()
         self.lazy = set()
-    def query(self, start, end, l, r, idx):
-        if r < start or end < l:
+
+    def quary(self, start, end, l, r, idx):
+        if r < start and end < l:
             return False
-        if idx in self.lazy:  # 如果该区间已被预订，则直接返回
+        if idx in self.lazy:
             return True
-        if start <= l and r <= end:
+        if start <= l and end >= r:
             return idx in self.tree
         mid = (l + r) // 2
-        return self.query(start, end, l, mid, 2 * idx) or \
-            self.query(start, end, mid + 1, r, 2 * idx + 1)
+        return self.quary(start, end, l, mid, 2 * idx) or self.quary(start, end, mid + 1, r, 2 * idx + 1)
+
     def update(self, start, end, l, r, idx):
-        if r < start or end < l:
+        if r < start and end < l:
             return
-        if start <= l and r <= end:
+        if start <= l and end >= r:
             self.tree.add(idx)
             self.lazy.add(idx)
         else:
             mid = (l + r) // 2
-            self.update(start, end, l, mid, 2 * idx)
-            self.update(start, end, mid + 1, r, 2 * idx + 1)
+            self.quary(start, end, l, mid, 2 * idx)
+            self.quary(start, end, mid + 1, r, 2 * idx)
             self.tree.add(idx)
             if 2 * idx in self.lazy and 2 * idx + 1 in self.lazy:
                 self.lazy.add(idx)
+
     def book(self, start, end):
-        if self.query(start, end - 1, 0, 10 ** 9, 1):
+        # 检查与已有日期是否冲突
+        if self.quary(start, end - 1, 0, 10 ** 9, 1):
             return False
+        # 没有冲突 添加到数组中
         self.update(start, end - 1, 0, 10 ** 9, 1)
         return True
