@@ -3,6 +3,12 @@
 # @FileName: leetcode 729.py
 # @Software: PyCharm
 
+'''
+leetcode
+729. 我的日程安排表 I
+mid
+https://leetcode.cn/problems/my-calendar-i/description/?languageTags=python
+'''
 class MyCalendar:
     def __init__(self):
         self.tree = set()
