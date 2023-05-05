@@ -5,27 +5,41 @@
 
 '''
 http://codefun2000.com/p/P1229
+拓扑排序
 '''
 
+from collections import deque
 
-n = int(input())
-m={}
-for i in range(n):
-    a=list(map(int,input().split()))
-    m[i]=a[1:]
-ans = 0
-nums=[]
-while m:
-    for a,b in m.items():
-        if b==[]:
-            nums.append(int(a))
-        else:
-            if set(b)&set(nums):
-                nums.append(int(a))
-    ans += 1
-    for a in nums:
-        if str(a) in m:
-            m.pop(str(a))
-print(ans)
+N = int(input())
 
+indegre = [0 for _ in range(N + 1)]
+nxs = {i: [] for i in range(N + 1)}
 
+for i in range(1, N + 1):
+    lines = [int(c) for c in input().split(" ")]
+    if lines[0] == 0: continue
+    for j in range(1, len(lines)):
+        nxs[lines[j]].append(i)
+        indegre[i] += 1
+
+q = deque()
+for i in range(1, N + 1):
+    if indegre[i] == 0:
+        q.append(i)
+
+cnt1 = 0
+cnt2 = 0
+while len(q):
+    size = len(q)
+    cnt1 += 1
+    for i in range(size):
+        node = q.popleft()
+        cnt2 += 1
+        for nx in nxs[node]:
+            indegre[nx] -= 1
+            if indegre[nx] == 0: q.append(nx)
+
+if cnt2 == N:
+    print(cnt1)
+else:
+    print(-1)
