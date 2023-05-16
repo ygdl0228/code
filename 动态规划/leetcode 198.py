@@ -17,18 +17,8 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        def dfs(root):
-            if not root:
-                return 0,0
-            rb0=max(dfs(root.left)+max(dfs(root.right)))
-            rb1=root.val+dfs(root.left)[0]+dfs(root.right)[0]
-            return rb0,rb1
-        res=dfs(root)
-        return max(res)
-
-
-            rb0=max(dfs(node.left))+max(dfs(node.right))
-            rb1=node.val+dfs(node.left)[0]+dfs(node.right)[0]
-            return rb0,rb1
-        res=dfs(root)
-        return max(res)
+        dp = [0] * len(nums)
+        dp[0]=nums[0]
+        for i in range(1, len(nums)):
+            dp[i]=max(dp[i-1],dp[i-2]+nums[i])
+        return max(dp)
