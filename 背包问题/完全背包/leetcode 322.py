@@ -23,7 +23,6 @@ class Solution(object):
         for coin in coins:
             for j in range(coin, amount + 1):
                 dp[j] = min(dp[j], dp[j - coin] + 1)
-        print(dp)
         return dp[amount] if dp[amount]!=float('inf') else -1
 
 print(Solution().coinChange([1, 2, 5],  11))
