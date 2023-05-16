@@ -18,17 +18,17 @@ class Bit:
         self.tree = [0] * (n + 1)
 
     def update(self, x):
-        x+=1
-        while x<=self.n:
-            self.tree[x]+=1
-            x+=x&(-x)
+        x += 1
+        while x <= self.n:
+            self.tree[x] += 1
+            x += x & (-x)
 
     def query(self, x):
-        x+=1
-        ans=0
-        while x>0:
-            ans+=self.tree[x]
-            x-=x&(-x)
+        x += 1
+        ans = 0
+        while x > 0:
+            ans += self.tree[x]
+            x -= x & (-x)
         return ans
 
 
